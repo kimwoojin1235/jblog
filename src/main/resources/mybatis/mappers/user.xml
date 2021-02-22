@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<!-- id값으로 유저정보 1개 가져오기 : 중복체크 (selectById) / 블로그 정보 불러오기 -->
+	<select id="selectId" parameterType="String" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select  us.user_no,
+        			us.id,
+        			us.username,
+        			us.joindate,
+        			bl.blogtitle,
+        			bl.logofile
+			from users us, blog bl
+			where us.id = bl.id
+			and us.id = #{id}
+		]]>
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertuser" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			insert into users
+			values(seq_user_no.nextval,
+				   #{id},
+				   #{username},
+				   #{password},
+				   sysdate
+			)
+		]]>
+	</insert>
+	
+	<!-- 회원가입시 블로그 초기값 입력-->
+	<insert id="insertblog" parameterType="com.javaex.vo.UserVo">
+		<![CDATA[
+			insert into blog
+			values(#{id},
+				   #{blogtitle},
+				   #{logofile}
+			)
+		]]>
+	</insert>
+	
+	<!-- 로그인 -->
+	<select id="selectidpass" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			select  us.user_no,
+        			us.id,
+        			bl.blogtitle
+			from users us, blog bl
+			where us.id = bl.id 
+            and us.id = #{id}
+			and us.password = #{password}
+		]]>
+	</select>
+	
+	<!-- 블로그 제목, 이미지 수정 -->
+	<update id="updateblog" parameterType="com.javaex.vo.UserVo" >
+		<![CDATA[
+			update blog
+			set blogtitle = #{blogtitle}
+		]]>	
+		
+		<if test="logoFile != null">
+			<![CDATA[
+										,
+    			logofile = #{logoFile}
+    		]]>
+ 		</if>
+ 		
+    	<![CDATA[
+			where id = #{id}
+		]]>
+	</update>
+</mapper>
