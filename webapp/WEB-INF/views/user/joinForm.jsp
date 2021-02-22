@@ -59,9 +59,7 @@
 			
 		</div>
 		
-		
-		<!-- 메인 푸터  자리-->
-		<%-- <c:import url="/WEB-INF/views/includes/main-footer.jsp"></c:import> --%>
+
 		
 	</div>
 

@@ -6,12 +6,12 @@
 	<!-- id값으로 유저정보 1개 가져오기 : 중복체크 (selectById) / 블로그 정보 불러오기 -->
 	<select id="selectId" parameterType="String" resultType="com.javaex.vo.UserVo">
 		<![CDATA[
-			select  us.user_no,
+			select  us.user_no as userno,
         			us.id,
         			us.username,
         			us.joindate,
         			bl.blogtitle,
-        			bl.logofile
+        			bl.logefile
 			from users us, blog bl
 			where us.id = bl.id
 			and us.id = #{id}
@@ -22,7 +22,7 @@
 	<insert id="insertuser" parameterType="com.javaex.vo.UserVo">
 		<![CDATA[
 			insert into users
-			values(seq_user_no.nextval,
+			values(seq_users_no.nextval,
 				   #{id},
 				   #{username},
 				   #{password},

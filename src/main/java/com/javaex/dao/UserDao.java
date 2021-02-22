@@ -38,13 +38,13 @@ public class UserDao {
 	public UserVo selectByIdNPw(UserVo userVo) {
 		System.out.println("userdao.selectidpass()");
 		
-		return sqlSession.selectOne("user.selectByIdNPw", userVo);
+		return sqlSession.selectOne("user.selectidpass", userVo);
 	}
 	
 	//블로그 메인 제목, 이미지 수정
 	public int updateBlog(UserVo userVo) {
 		System.out.println("userdao.updateblog()");
 		
-		return sqlSession.update("user.updateBlog", userVo);
+		return sqlSession.update("user.updateblog", userVo);
 	}
 }
